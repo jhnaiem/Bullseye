@@ -20,7 +20,6 @@ struct ContentView: View {
                 InstructionsViews(game: $game)
                 SliderView(sliderValue: $sliderValue)
                 HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
-                
             }
         }
     }
@@ -47,7 +46,6 @@ struct SliderView: View {
             SliderLabelText(text: "100")
         }
         .padding()
-
     }
 }
 
@@ -57,7 +55,6 @@ struct HitMeButtonView: View {
     @Binding  var game: Game
     var body: some View {
         Button(action: {
-            print("Hello, SwiftUI!")
             self.alertIsVisible = true
         }) {
             Text("Hit me".uppercased())
@@ -73,11 +70,17 @@ struct HitMeButtonView: View {
         .cornerRadius(21.0)
         .overlay(RoundedRectangle(cornerRadius: 21.0)
             .strokeBorder(Color.white, lineWidth: 2.0))
-        .alert("Hello there!", isPresented: $alertIsVisible){
-            Button("Awesome"){}
-        }message: {
+        .alert("Hello there!", isPresented: $alertIsVisible, presenting: {
             let roundedValue = Int(sliderValue.rounded())
-            Text("The slider value is \(roundedValue).\n" + "You scored \(self.game.points(sliderValue: roundedValue)) points this round.")
+            return (
+                roundedValue, game.points(sliderValue: roundedValue)
+            )
+        }() as (roundedValue: Int , points: Int)){ data in
+            Button("Awesome"){
+                game.startNewRound(points: data.points)
+            }
+        }message: { data in
+            Text("The slider value is \(data.roundedValue).\n" + "You scored \(data.points) points this round.")
         }
     }
 }
