@@ -11,7 +11,7 @@ struct BackgroundViews: View {
     @Binding var game: Game
     var body: some View {
         VStack{
-            TopView()
+            TopView(game: $game)
             Spacer()
             BottomView(game: $game)
         }
@@ -23,12 +23,18 @@ struct BackgroundViews: View {
 }
 
 struct TopView: View {
+    @Binding var game: Game
+    
     var body: some View {
         HStack{
+            Button(action: {
+                game.restart()
+            }){
             RoundedImageViewStroked(systemName: "arrow.counterclockwise")
+            }
             Spacer()
             RoundedImageViewFilled(systemName: "list.dash")
-
+            
         }
     }
 }
@@ -52,7 +58,7 @@ struct BottomView: View {
             NumberView(title: "Score", text: String(game.score))
             Spacer()
             NumberView(title: "Round", text: String(game.round))
-
+            
         }
     }
 }
