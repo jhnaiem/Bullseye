@@ -17,8 +17,8 @@ struct BackgroundViews: View {
         }
         .padding()
         .background(
-            Color("BackgroundColor")
-                .edgesIgnoringSafeArea(.all))
+            RingsView()
+        )
     }
 }
 
@@ -30,7 +30,7 @@ struct TopView: View {
             Button(action: {
                 game.restart()
             }){
-            RoundedImageViewStroked(systemName: "arrow.counterclockwise")
+                RoundedImageViewStroked(systemName: "arrow.counterclockwise")
             }
             Spacer()
             RoundedImageViewFilled(systemName: "list.dash")
@@ -62,8 +62,34 @@ struct BottomView: View {
         }
     }
 }
+
+struct RingsView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        ZStack{
+            Color("BackgroundColor")
+                .edgesIgnoringSafeArea(.all)
+            ForEach(1..<5){ ring in
+                let size = CGFloat(ring * 100)
+                let opacity = colorScheme == .dark ? 0.1 : 0.3
+                Circle()
+                    .stroke(lineWidth: 20.0)
+                    .fill(
+                        RadialGradient(gradient: Gradient(colors: [Color("RingsColor").opacity(opacity), Color("RingsColor").opacity(0)]), center: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, startRadius: 100, endRadius: 300)
+                    )
+                    .frame(width: size, height: size)
+                
+            }
+        }
+    }
+}
+
+
 struct BackgroundViews_Previews: PreviewProvider {
     static var previews: some View {
         BackgroundViews(game: .constant(Game()))
+            .preferredColorScheme(.dark)
     }
 }
