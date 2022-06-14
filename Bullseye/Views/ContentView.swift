@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @State private var alertIsVisible = false
     @State private var sliderValue = 50.0
     @State private var game = Game()
-    
+
     var body: some View {
         ZStack {
             BackgroundViews(game: $game)
-            VStack{
+            VStack {
                 InstructionsViews(game: $game)
-                    .padding(.bottom, alertIsVisible ? 0: 100 )
-                    
+                    .padding(.bottom, alertIsVisible ? 0 : 100)
+
                 if alertIsVisible {
                     PointsView(game: $game, sliderValue: $sliderValue, alertIsVisible: $alertIsVisible)
                         .transition(.scale)
@@ -53,7 +52,7 @@ struct SliderView: View {
     var body: some View {
         HStack {
             SliderLabelText(text: "1")
-            Slider(value: $sliderValue, in: 1.0...100.0)
+            Slider(value: $sliderValue, in: 1.0 ... 100.0)
             SliderLabelText(text: "100")
         }
         .padding()
@@ -61,12 +60,12 @@ struct SliderView: View {
 }
 
 struct HitMeButtonView: View {
-    @Binding  var alertIsVisible: Bool
-    @Binding  var sliderValue: Double
-    @Binding  var game: Game
+    @Binding var alertIsVisible: Bool
+    @Binding var sliderValue: Double
+    @Binding var game: Game
     var body: some View {
         Button(action: {
-            withAnimation{
+            withAnimation {
                 self.alertIsVisible = true
             }
         }) {
@@ -77,19 +76,17 @@ struct HitMeButtonView: View {
         .padding(20.0)
         .background(ZStack {
             Color("ButtonColor")
-            LinearGradient(colors: [Color.white.opacity(0.3),Color.clear], startPoint: .top, endPoint: .bottom)
+            LinearGradient(colors: [Color.white.opacity(0.3), Color.clear], startPoint: .top, endPoint: .bottom)
         })
         .foregroundColor(Color.white)
         .cornerRadius(Constants.General.roundedRectCornerRadius)
         .overlay(RoundedRectangle(cornerRadius: Constants.General.roundedRectCornerRadius)
             .strokeBorder(Color.white, lineWidth: Constants.General.strokeWidth))
-        
     }
 }
 
-struct ContentView_Previews : PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        
         ContentView()
         ContentView()
             .previewLayout(.fixed(width: 568, height: 320))

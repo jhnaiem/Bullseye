@@ -12,14 +12,14 @@ struct PointsView: View {
     @Binding var sliderValue: Double
     @Binding var alertIsVisible: Bool
     var body: some View {
-        VStack(spacing: 10){
+        VStack(spacing: 10) {
             let roundedValue = Int(sliderValue.rounded())
             let points = game.points(sliderValue: roundedValue)
             InstructionText(text: "The slider value is ")
             BigNumberText(text: String(roundedValue))
             BodyText(text: "You Scored \(points) Points\n 🎉🎉🎉")
             Button(action: {
-                withAnimation{
+                withAnimation {
                     self.alertIsVisible = false
                 }
                 game.startNewRound(points: points)
@@ -28,20 +28,19 @@ struct PointsView: View {
             }
         }
         .padding()
-        .frame( maxWidth: 300)
+        .frame(maxWidth: 300)
         .background(Color.gray)
         .cornerRadius(Constants.General.roundedRectCornerRadius)
-        .shadow( radius: 10, x: 5, y: 5)
+        .shadow(radius: 10, x: 5, y: 5)
         .transition(.scale)
     }
 }
 
 struct PointsView_Previews: PreviewProvider {
-    static private var alertIsVisible = Binding.constant(false)
-    static private var sliderValue = Binding.constant(50.0)
-    static private var game = Binding.constant(Game())
-    
-    
+    private static var alertIsVisible = Binding.constant(false)
+    private static var sliderValue = Binding.constant(50.0)
+    private static var game = Binding.constant(Game())
+
     static var previews: some View {
         PointsView(game: game, sliderValue: sliderValue, alertIsVisible: alertIsVisible)
         PointsView(game: game, sliderValue: sliderValue, alertIsVisible: alertIsVisible)
@@ -51,7 +50,5 @@ struct PointsView_Previews: PreviewProvider {
         PointsView(game: game, sliderValue: sliderValue, alertIsVisible: alertIsVisible)
             .preferredColorScheme(.dark)
             .previewLayout(.fixed(width: 568, height: 320))
-        
     }
 }
-

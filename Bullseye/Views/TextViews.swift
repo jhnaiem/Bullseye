@@ -13,22 +13,32 @@ struct InstructionText: View {
         Text(text.uppercased())
             .bold()
             .kerning(2.0)
-            .multilineTextAlignment(.center )
+            .multilineTextAlignment(.center)
             .lineSpacing(4.0)
             .font(.footnote)
             .foregroundColor(Color("TextColor"))
-        
     }
 }
 
-struct BigNumberText: View{
+struct BigNumberText: View {
     var text: String
-    
-    var body: some View{
+
+    var body: some View {
         Text(text)
             .kerning(-1.0)
             .font(.largeTitle)
             .fontWeight(.black)
+    }
+}
+
+struct LeaderboardText: View {
+    var text: String
+    var body: some View {
+        Text(text.uppercased())
+            .kerning(2.0)
+            .font(.title)
+            .fontWeight(.black)
+            .foregroundColor(Color("TextColor"))
     }
 }
 
@@ -39,6 +49,16 @@ struct SliderLabelText: View {
             .bold()
             .foregroundColor(Color("TextColor"))
             .frame(width: 35.0)
+    }
+}
+
+struct LabelText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .bold()
+            .foregroundColor(Color("TextColor"))
+            .frame(width: 70.0)
     }
 }
 
@@ -58,11 +78,10 @@ struct BodyText: View {
     var body: some View {
         Text(text)
             .fontWeight(.semibold)
-            .multilineTextAlignment(.center )
+            .multilineTextAlignment(.center)
             .lineSpacing(7.0)
             .font(.subheadline)
             .foregroundColor(Color("TextColor"))
-        
     }
 }
 
@@ -79,7 +98,6 @@ struct ButtonText: View {
                 Color.accentColor
             )
             .cornerRadius(Constants.General.roundedRectCornerRadius)
-            
     }
 }
 
@@ -94,7 +112,16 @@ struct ScoreText: View {
     }
 }
 
-
+struct DateView: View {
+    let date: Date
+    var body: some View {
+        Text(date, style: .time)
+            .kerning(-0.2)
+            .bold()
+            .font(.title3)
+            .foregroundColor(Color("TextColor"))
+    }
+}
 
 struct TextViews_Previews: PreviewProvider {
     static var previews: some View {
@@ -106,6 +133,9 @@ struct TextViews_Previews: PreviewProvider {
             ScoreText(text: "00")
             BodyText(text: "You Scored 200 Points\n 🎉🎉🎉")
             ButtonText(text: "Start New Round")
+            DateView(date: Date())
+            LeaderboardText(text: "Leaderboard")
+            LabelText(text: "Text")
         }
         .padding()
     }

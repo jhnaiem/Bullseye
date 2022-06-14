@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RoundedImageViewStroked: View {
     var systemName: String
-    
+
     var body: some View {
         Image(systemName: systemName)
             .font(.title)
@@ -25,7 +25,7 @@ struct RoundedImageViewStroked: View {
 
 struct RoundedImageViewFilled: View {
     var systemName: String
-    
+
     var body: some View {
         Image(systemName: systemName)
             .font(.title)
@@ -34,6 +34,19 @@ struct RoundedImageViewFilled: View {
             .background(
                 Circle()
                     .fill(Color("TextColor")))
+    }
+}
+
+struct RoundedTextView: View {
+    let text: String
+    var body: some View {
+        ScoreText(text: text)
+            .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundedViewHeight)
+            .overlay(
+                Circle()
+                    .strokeBorder(Color("LeaderboardRowColor"),
+                                  lineWidth: Constants.General.strokeWidth)
+            )
     }
 }
 
@@ -59,6 +72,7 @@ struct PreviewView: View {
             RoundedImageViewStroked(systemName: "arrow.counterclockwise")
             RoundedImageViewFilled(systemName: "list.dash")
             RoundedRecTextView(text: "100")
+            RoundedTextView(text: "50")
         }
     }
 }
